@@ -1,3 +1,9 @@
 body {
-  background-color: aqua;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+canvas {
+  background: #000;
+  display: block;
+  margin: auto;
 }

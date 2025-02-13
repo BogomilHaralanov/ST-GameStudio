@@ -7,7 +7,11 @@
 
     </head>
     <body>
+        <link ref="stylesheet" href="style.css">
         <h1>Snake Game</h1>
+        <button onclick="startGame()">Start</button>
+        <button onclick="stopGame()">Stop</button>
+        <button onclick="quitGame()">Quit</button>
         <canvas id="gameCanvas" width="400" height="400"></canvas>
         <script>
         const canvas = document.getElementById("gameCanvas");
@@ -20,6 +24,7 @@
             x: Math.floor(Math.random() * 20) * box,
             y: Math.floor(Math.random() * 20) * box
         };
+        let gameInterval;
         
         document.addEventListener("keydown", changeDirection);
         
@@ -56,13 +61,29 @@
             
             if (head.x < 0 || head.x >= canvas.width || head.y < 0 || head.y >= canvas.height || snake.some(segment => segment.x === head.x && segment.y === head.y)) {
                 alert("Game Over!");
+                stopGame();
                 document.location.reload();
             }
             
             snake.unshift(head);
         }
         
-        setInterval(draw, 350);
+        function startGame() {
+            if (!gameInterval) {
+                gameInterval = setInterval(draw, 300);
+            }
+        }
+        
+        function stopGame() {
+            clearInterval(gameInterval);
+            gameInterval = null;
+        }
+        
+        function quitGame() {
+            stopGame();
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            alert("Game Quit!");
+        }
     </script>
     </body>
 </html>
